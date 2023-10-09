@@ -17,7 +17,7 @@ const port = 5000
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));   
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://car-rental-frontend-pf9s.onrender.com',
   credentials: true
 }))
 app.use(express.urlencoded({ extended: true }))    
