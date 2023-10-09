@@ -10,7 +10,7 @@ const Carroutes=Router();
 Carroutes.post('/addadmincar',adminAuth,AddCar)
 Carroutes.post('/editadmincar',adminAuth,EditCar)
 Carroutes.post('/deleteadmincar',adminAuth,DeleteCar)
-Carroutes.get('/getadmincar',adminAuth,GetAdminCar)     
+Carroutes.get('/getadmincar',adminAuth,GetAdminCar)
 
 
 

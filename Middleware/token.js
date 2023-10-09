@@ -2,14 +2,17 @@ const jwt=require("jsonwebtoken");
 
 const requireAuth = (req,res,next) =>{
 
-     console.log("requireAuth",req.cookies);
+    //  console.log("requireAuth",req.headers);
 
-    const token=req.cookies.jwt;
+    const token=req.headers['authorization'];
 
     console.log('token',token)
 
     if(token){
-        jwt.verify(token,"net ninja secret",(err,decodedToken)=>{
+
+        const tokenWithoutQuotes = token.replace(/"/g,'');
+
+        jwt.verify(tokenWithoutQuotes,"net ninja secret",(err,decodedToken)=>{
 
             if(err){
                 console.log(err.message);

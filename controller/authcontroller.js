@@ -66,8 +66,8 @@ module.exports.Userlogin = async (req, res) => {
      
       const token = createToken(user._id);
       console.log(token)
-      res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-      res.status(200).json(user);
+      //res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+      res.status(200).json({autherization: token});
     } 
     
     catch (err) {
@@ -104,9 +104,9 @@ module.exports.Adminlogin = async (req, res) => {
     const admin = await Admin.login(email, password);
     const token = admintoken(admin._id);
 
-    res.cookie('adminjwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+    //res.cookie('adminjwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
 
-    res.status(200).json({Admin:admin});
+    res.status(200).json({autherization: token});
 
   } catch (err) {
 

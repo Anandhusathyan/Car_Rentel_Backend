@@ -47,7 +47,7 @@ module.exports.Editcart = async (req,res)=>{
 
         updateobj={};
 
-        if(origin) updateobj.origin=origin;
+        if(origin) updateobj.origin = origin;
 
         if(destination) updateobj.destination = destination;    
 
@@ -55,7 +55,7 @@ module.exports.Editcart = async (req,res)=>{
 
     try{
         
-        const car = await CarbookingDetails.updateOne({carid},{$set:updateobj })
+        const car = await CarbookingDetails.updateOne({carid,userid: req.session.userId},{$set:updateobj })
         res.status(201).json(car)
     }
     catch(err){
@@ -88,12 +88,13 @@ module.exports.Deletecart = async (req,res)=>{
 module.exports.GetBookedcars = async (req,res)=>{
 
 
-    console.log(req.body,req.session.userId)    
+    console.log("Hello",req.body,req.session.userId);
     
-    let userid= req.session.userId; 
+    let userid= req.session.userId;
     try{
         
         const car = await CarbookingDetails.find({userid})
+        console.log(car);
         res.status(201).json(car)
     }
     catch(err){

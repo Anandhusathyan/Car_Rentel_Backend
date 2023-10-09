@@ -83,9 +83,7 @@ module.exports.DeleteCar = async(req,res)=>{
     
 }
 
-module.exports.GetAllCar= async ( req,res )=>{
-
-    
+module.exports.GetAllCar = async ( req,res )=>{
     
     try{
         

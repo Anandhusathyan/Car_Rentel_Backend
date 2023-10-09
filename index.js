@@ -7,14 +7,15 @@ const authroutes = require("./Routes/authroutes")
 const Carroutes = require("./Routes/carroutes")
 const bookingroutes = require("./Routes/bookingroutes")
 require("./db/dbconnection")
-const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');    
 require('dotenv').config();
-const axios = require("axios")
+const axios = require("axios");
+const jwt = require('jsonwebtoken');
 
 const app = express()
 const port = 5000
 app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ limit: '10mb', extended: true }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));   
 app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true
@@ -154,6 +155,65 @@ app.post( "/api/deleteimage", async (req,res) => {
   }
 })
 
+app.get("/adminAuth",(req,res) =>{
+
+  console.log("requireAuth",req.headers);
+  console.log("require",req.headers["authorization"]);
+
+ const token=req.headers["authorization"]
+
+ if(token){
+
+     const tokenwithoutquotes = token.replace(/"/g,'');
+
+     jwt.verify(tokenwithoutquotes,"anandhu daa",(err,decodedToken)=>{
+
+         if(err){
+             console.log(err.message);
+             res.status(302).send("change url").end()
+         }
+         else{
+         const {adminid}= decodedToken;
+         res.status(200).json({message:"sucess"});
+         }
+     })
+ }
+ else{
+     console.log("requireAuth1"); 
+     res.status(302).send("change url")
+     //res.status(400).json({error:"not found token"})
+ }
+})
+
+app.get("/Userauth",(req,res) =>{
+
+  console.log("requireAuth",req.headers);
+  console.log("require",req.headers["authorization"]);
+
+ const token=req.headers["authorization"]
+
+ if(token){
+
+     const tokenwithoutquotes = token.replace(/"/g,'');
+
+     jwt.verify(tokenwithoutquotes,"net ninja secret",(err,decodedToken)=>{
+
+         if(err){
+             console.log(err.message);
+             res.status(302).send("change url").end()
+         }
+         else{
+         const {adminid} = decodedToken;
+         res.status(200).json({message:"sucess"});
+         }
+     })
+ }
+ else{
+     console.log("requireAuth1"); 
+     res.status(302).send("change url")
+     //res.status(400).json({error:"not found token"})
+ }
+})
 
 
 app.listen(port, () => {
